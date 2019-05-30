@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     //await Future.delayed(Duration(seconds: 3));
     ThemeHelper themeHelper = new ThemeHelper(context: context);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int themeIdInt = (prefs.getInt('theme') ?? ThemeIds.DEFAULT_THEME);
+    int themeIdInt = (prefs.getInt('theme') ?? ThemeIds.DEFAULT);
     ThemeData theme = themeHelper.getThemeById(themeIdInt);
     return theme;
   }

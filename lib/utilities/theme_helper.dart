@@ -7,13 +7,22 @@ class ThemeHelper {
   ThemeHelper({this.context});
 
   ThemeData getThemeById(int themeId) {
-    switch(themeId) {
-      case ThemeIds.DEFAULT_THEME:
+    ThemeIds themeIdEnum = ThemeIds.values[themeId];
+    switch(themeIdEnum) {
+      case ThemeIds.DEFAULT:
         return getDefaultTheme();
-      case ThemeIds.DARK_THEME:
+//      case ThemeIds.LIGHT:
+//        return getLightTheme();
+      case ThemeIds.DARK:
         return getDarkTheme();
-      case ThemeIds.AMOLED_BLACK_THEME:
-       return getAmoledTheme();
+      case ThemeIds.DARKER:
+        return getDarkerTheme();
+      case ThemeIds.BLACK:
+       return getBlackTheme();
+      case ThemeIds.AMOLED_BLACK:
+        return getAmoledBlackTheme();
+      case ThemeIds.RED_GREY:
+        return getRedGreytheme();
       default:
         return getDefaultTheme();
     }
@@ -25,17 +34,46 @@ class ThemeHelper {
     );
   }
 
+  ThemeData getLightTheme() {
+    return ThemeData(
+      primaryColor: Colors.white,
+    );
+  }
+
   ThemeData getDarkTheme() {
-    return ThemeData.dark().copyWith(
-      accentColor: Colors.blue,
+    return ThemeData(
+      primaryColor: Color(0xFF222222),
       indicatorColor: Colors.blue,
     );
   }
 
-  ThemeData getAmoledTheme() {
+  ThemeData getDarkerTheme() {
+    return ThemeData.dark().copyWith(
+      accentColor: Colors.white,
+      indicatorColor: Colors.white,
+    );
+  }
+
+  ThemeData getBlackTheme() {
     return ThemeData(
       primaryColor: Colors.black,
       accentColor: Colors.blue,
+    );
+  }
+
+  ThemeData getAmoledBlackTheme() {
+    return ThemeData.dark().copyWith(
+      primaryColor: Colors.black,
+      accentColor: Colors.white,
+      indicatorColor: Colors.white,
+      cardColor: Colors.black,
+    );
+  }
+
+  ThemeData getRedGreytheme() {
+    return ThemeData(
+      primaryColor: Colors.grey.shade600,
+      accentColor: Colors.red,
     );
   }
 
