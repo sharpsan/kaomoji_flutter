@@ -1,16 +1,17 @@
 # kaomoji_flutter
 
-A new Flutter application.
+Written-from-scratch clone of the Android app [ASCII Faces](https://play.google.com/store/apps/details?id=com.joeapps.asciifaces).  Includes various improvements.
 
-## Getting Started
+## Building
 
-This project is a starting point for a Flutter application.
+This project was created with the Flutter framework.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites  
++ Flutter is [Installed and configured](https://flutter.dev/docs/get-started/install)
++ [Android Studio](https://developer.android.com/studio) (or another compatable IDE)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Running project
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repo
+2. Navigate to the project root -> pubspec.yaml and run `Packages get` to download dependencies
+3. Select an ADV/device then run **_main.dart_**
