@@ -5,7 +5,9 @@ import 'package:kaomoji_flutter/constants/constants.dart';
 class EmojisScreen extends StatelessWidget {
   final emojiData;
 
-  EmojisScreen({this.emojiData});
+  EmojisScreen({
+    this.emojiData,
+  });
 
   void copyToClipboard(BuildContext context, String text) {
     ClipboardManager.copyToClipBoard(text).then((result) {
@@ -49,9 +51,9 @@ class EmojisScreen extends StatelessWidget {
                 ),
               ),
               new Positioned.fill(
-                child: new Material(
+                child: Material(
                   color: Colors.transparent,
-                  child: new InkWell(
+                  child: InkWell(
                     borderRadius: BorderRadius.circular(4),
                     onTap: () => copyToClipboard(context, emojiData[index]),
                   ),

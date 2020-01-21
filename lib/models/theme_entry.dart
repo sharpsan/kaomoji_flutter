@@ -6,5 +6,9 @@ class ThemeEntry {
   final String name;
   final String description;
 
-  const ThemeEntry({@required this.id, @required this.name, @required this.description});
+  const ThemeEntry({
+    @required this.id,
+    @required this.name,
+    @required this.description,
+  });
 }

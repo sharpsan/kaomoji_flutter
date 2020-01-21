@@ -1,4 +1,6 @@
-const kHappyEmojis = [
+library emojis;
+
+const kEmojisHappy = [
   '¯\\_(ツ)_/¯',
   '(☞ﾟヮﾟ)☞',
   '(◕‿◕)',
@@ -49,7 +51,7 @@ const kHappyEmojis = [
   '(づ｡◕‿‿◕｡)づ',
 ];
 
-final kAngryEmojis = [
+const kEmojisAngry = [
   '(≖︿≖ )',
   '(ง ͠° ͟ل͜ ͡°)ง',
   'ಠ_ಠ',
@@ -86,7 +88,7 @@ final kAngryEmojis = [
   '(ㆆ_ㆆ)',
 ];
 
-final kOtherEmojis = [
+const kEmojisOther = [
   '( ཀ ʖ̯ ཀ)',
   '(╥﹏╥)',
   '( ͡°ᴥ ͡° ʋ)',

@@ -26,7 +26,7 @@ dependencies:
   # https://pub.dev/packages/clipboard_manager
   clipboard_manager: ^0.0.4
   # https://pub.dev/packages/shared_preferences
-  shared_preferences: ^0.5.2+1
+  shared_preferences: ^0.5.6
 
 dev_dependencies:
   flutter_test:

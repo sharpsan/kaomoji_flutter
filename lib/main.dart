@@ -13,21 +13,21 @@ class MyApp extends StatefulWidget {
 
   static restartApp(BuildContext context) {
     final _MyAppState state =
-    context.ancestorStateOfType(const TypeMatcher<_MyAppState>());
+    context.findAncestorStateOfType<_MyAppState>();
     state.restartApp();
   }
 
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  Key key = new UniqueKey();
+  Key key = UniqueKey();
   Future<ThemeData> theme;
 
   Future<ThemeData> loadTheme(BuildContext context) async {
     //await Future.delayed(Duration(seconds: 3));
-    ThemeHelper themeHelper = new ThemeHelper(context: context);
+    ThemeHelper themeHelper = ThemeHelper(context: context);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int themeIdInt = (prefs.getInt('theme') ?? ThemeIds.DEFAULT);
     ThemeData theme = themeHelper.getThemeById(themeIdInt);
@@ -37,14 +37,14 @@ class _MyAppState extends State<MyApp> {
 
   void restartApp() {
     this.setState(() {
-      key = new UniqueKey();
+      key = UniqueKey();
     });
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    ThemeHelper themeHelper = new ThemeHelper(context: context);
+    ThemeHelper themeHelper = ThemeHelper(context: context);
     theme = loadTheme(context);
 
     return FutureBuilder<ThemeData>(
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           case ConnectionState.active:
           case ConnectionState.done:
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'ASCII Emotes',
             theme: snapshot.data,
             initialRoute: '/',
             routes: {
