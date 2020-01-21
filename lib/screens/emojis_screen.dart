@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:clipboard_manager/clipboard_manager.dart';
+import 'package:flutter/services.dart';
 import 'package:kaomoji_flutter/constants/constants.dart';
 
 class EmojisScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class EmojisScreen extends StatelessWidget {
   });
 
   void copyToClipboard(BuildContext context, String text) {
-    ClipboardManager.copyToClipBoard(text).then((result) {
+    Clipboard.setData(ClipboardData(text: text)).whenComplete(() {
       final snackBar = SnackBar(
         content: Text('Face copied to clipboard'),
         action: SnackBarAction(

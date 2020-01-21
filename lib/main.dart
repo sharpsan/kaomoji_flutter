@@ -21,6 +21,8 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+// TODO: figure out splashscreen: /android/app/src/main/res/drawable/launch_background - sdk <= 19 uses different mipmap load method in xml
+// TODO: fix wonky character parsing (confirmed on sdk19, maybe more)
 class _MyAppState extends State<MyApp> {
   Key key = UniqueKey();
   Future<ThemeData> theme;
@@ -56,6 +58,7 @@ class _MyAppState extends State<MyApp> {
           case ConnectionState.active:
           case ConnectionState.done:
           return MaterialApp(
+            //debugShowCheckedModeBanner: false,
             title: 'ASCII Emotes',
             theme: snapshot.data,
             initialRoute: '/',
