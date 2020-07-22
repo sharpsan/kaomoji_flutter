@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kaomoji_flutter/constants/constants.dart';
 
 class EmojisScreen extends StatelessWidget {
   final emojiData;
-
-  EmojisScreen({
-    this.emojiData,
-  });
+  EmojisScreen({this.emojiData});
 
   void copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text)).whenComplete(() {
@@ -31,38 +27,54 @@ class EmojisScreen extends StatelessWidget {
         vertical: 5.0,
       ),
       itemBuilder: (context, index) {
-        return Container(
-          height: 70.0,
-          margin: EdgeInsets.symmetric(vertical: 5.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(kCardBorderRadius),
-            color: Theme.of(context).cardColor,
-          ),
-          child: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                child: Center(
-                  child: Text(
-                    emojiData[index],
-                    style: TextStyle(
-                      fontSize: 38.0,
-                    ),
-                  ),
-                ),
-              ),
-              new Positioned.fill(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(4),
-                    onTap: () => copyToClipboard(context, emojiData[index]),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        return EmojiCard(
+          emoji: emojiData[index],
+          onPressed: () => copyToClipboard(context, emojiData[index]),
         );
       },
+    );
+  }
+}
+
+class EmojiCard extends StatelessWidget {
+  final String emoji;
+  final Function onPressed;
+  EmojiCard({
+    @required this.emoji,
+    @required this.onPressed,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70.0,
+      margin: EdgeInsets.symmetric(vertical: 5.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2),
+        color: Theme.of(context).cardColor,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Center(
+              child: Text(
+                emoji,
+                style: TextStyle(
+                  fontSize: 38.0,
+                ),
+              ),
+            ),
+          ),
+          new Positioned.fill(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(4),
+                onTap: onPressed,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
