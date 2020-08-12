@@ -31,6 +31,10 @@ class ThemeModel extends ChangeNotifier {
     });
   }
 
+  ThemeData getThemeData(Themes theme) {
+    return _themes[theme].themeData;
+  }
+
   ThemeEntry getThemeById(int themeId) {
     return _themes.values.firstWhere((entry) => entry.id == themeId);
   }
