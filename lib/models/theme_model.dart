@@ -1,110 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'theme_entry.dart';
+import 'package:kaomoji_flutter/constants/themes.dart';
 
 class ThemeModel extends ChangeNotifier {
   ThemeModel() {
     _theme = _loadTheme();
   }
 
-  Future<ThemeData> _theme;
+  late Future<ThemeEntry> _theme;
+  Future<ThemeEntry> get theme => _theme;
+  List<ThemeEntry> get themes => appThemes;
 
-  Future<ThemeData> get theme => _theme;
-  Map<Themes, ThemeEntry> get themes => _themes;
-
-  Future<ThemeData> _loadTheme() async {
+  Future<ThemeEntry> _loadTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int themeIdInt = (prefs.getInt('theme') ?? Themes.DEFAULT.index);
-    ThemeData theme = getThemeById(themeIdInt).themeData;
-    return theme;
+    int themeIdInt = (prefs.getInt('theme') ?? ThemeKey.DEFAULT.index);
+    ThemeEntry themeEntry = getThemeByIndex(themeIdInt);
+    return themeEntry;
   }
 
-  Future<void> loadTheme() async {
+  Future<void> initTheme() async {
     _theme = _loadTheme();
     notifyListeners();
   }
 
-  void applyTheme(int themeId) async {
+  void applyTheme(ThemeKey key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('theme', themeId).whenComplete(() {
-      loadTheme();
+    await prefs.setInt('theme', key.index).whenComplete(() {
+      initTheme();
     });
   }
 
-  ThemeData getThemeData(Themes theme) {
-    return _themes[theme].themeData;
+  ThemeEntry getDefaultTheme() {
+    return appThemes.firstWhere((e) => e.key == ThemeKey.DEFAULT);
   }
 
-  ThemeEntry getThemeById(int themeId) {
-    return _themes.values.firstWhere((entry) => entry.id == themeId);
+  ThemeEntry getTheme(ThemeKey key) {
+    return appThemes.firstWhere(
+      (e) => key == e.key,
+      orElse: () => getDefaultTheme(),
+    );
   }
 
-  ////////// THEMES //////////
-
-  Map<Themes, ThemeEntry> _themes = {
-    Themes.DEFAULT: ThemeEntry(
-      id: 0,
-      name: 'Default',
-      description: 'Blue light theme',
-      themeData: ThemeData(
-        primaryColor: Colors.blue,
-      ),
-    ),
-    Themes.DARK: ThemeEntry(
-      id: 1,
-      name: 'Dark',
-      description: 'Material grey hybrid theme',
-      themeData: ThemeData(
-        primaryColor: Color(0xFF222222),
-        indicatorColor: Colors.blue,
-      ),
-    ),
-    Themes.DARKER: ThemeEntry(
-      id: 2,
-      name: 'Darker',
-      description: 'Material grey dark theme',
-      themeData: ThemeData.dark().copyWith(
-        accentColor: Colors.white,
-        indicatorColor: Colors.white,
-      ),
-    ),
-    Themes.BLACK: ThemeEntry(
-      id: 3,
-      name: 'Black',
-      description: 'Black hybrid theme',
-      themeData: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Colors.blue,
-      ),
-    ),
-    Themes.AMOLED_BLACK: ThemeEntry(
-      id: 4,
-      name: "AMOLED Black",
-      description: "Black dark theme",
-      themeData: ThemeData.dark().copyWith(
-        primaryColor: Colors.black,
-        accentColor: Colors.white,
-        indicatorColor: Colors.white,
-        cardColor: Colors.black,
-      ),
-    ),
-    Themes.RED_GREY: ThemeEntry(
-      id: 5,
-      name: "Red/Grey",
-      description: "Light theme",
-      themeData: ThemeData(
-        primaryColor: Colors.grey.shade600,
-        accentColor: Colors.red,
-      ),
-    ),
-  };
-}
-
-enum Themes {
-  DEFAULT,
-  DARK,
-  DARKER,
-  BLACK,
-  AMOLED_BLACK,
-  RED_GREY,
+  ThemeEntry getThemeByIndex(int themeIndex) {
+    return appThemes[themeIndex];
+  }
 }

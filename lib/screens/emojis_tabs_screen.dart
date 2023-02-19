@@ -22,7 +22,6 @@ class EmojisTabsScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
           actions: <Widget>[
             // theme settings
@@ -48,7 +47,7 @@ class TabEntry {
   final Tab tab;
   final Widget tabView;
   TabEntry({
-    this.tab,
-    this.tabView,
+    required this.tab,
+    required this.tabView,
   });
 }

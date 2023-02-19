@@ -14,7 +14,7 @@ class EmojisScreen extends StatelessWidget {
           onPressed: () {},
         ),
       );
-      Scaffold.of(context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
 
@@ -38,10 +38,10 @@ class EmojisScreen extends StatelessWidget {
 
 class EmojiCard extends StatelessWidget {
   final String emoji;
-  final Function onPressed;
+  final VoidCallback? onPressed;
   EmojiCard({
-    @required this.emoji,
-    @required this.onPressed,
+    required this.emoji,
+    this.onPressed,
   });
   @override
   Widget build(BuildContext context) {
