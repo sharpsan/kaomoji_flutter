@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class EmojisScreen extends StatelessWidget {
-  final emojiData;
-  EmojisScreen({this.emojiData});
+  final List<String> emojiData;
+  EmojisScreen({
+    required this.emojiData,
+  });
 
   void copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text)).whenComplete(() {
@@ -64,7 +66,7 @@ class EmojiCard extends StatelessWidget {
               ),
             ),
           ),
-          new Positioned.fill(
+          Positioned.fill(
             child: Material(
               color: Colors.transparent,
               child: InkWell(

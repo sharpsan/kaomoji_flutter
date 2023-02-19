@@ -22,27 +22,28 @@ class _ThemeSelectorScreenState extends State<ThemeSelectorScreen> {
           /// Theme cards
           Expanded(
             child: FutureBuilder<ThemeEntry>(
-                future: themeModel.theme,
-                builder: (context, snapshot) {
-                  return ListView.builder(
-                    itemCount: appThemes.length,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 25.0,
-                      horizontal: 20.0,
-                    ),
-                    itemBuilder: (context, index) {
-                      ThemeEntry themeEntry = appThemes[index];
-                      return _ThemeCard(
-                        name: themeEntry.name,
-                        onButtonPressed: () =>
-                            themeModel.applyTheme(themeEntry.key),
-                        themePrimaryColor: themeEntry.themeData.primaryColor,
-                        isActive:
-                            themeEntry.key.index == snapshot.data?.key.index,
-                      );
-                    },
-                  );
-                }),
+              future: themeModel.theme,
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  itemCount: appThemes.length,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 25.0,
+                    horizontal: 20.0,
+                  ),
+                  itemBuilder: (context, index) {
+                    ThemeEntry themeEntry = appThemes[index];
+                    return _ThemeCard(
+                      name: themeEntry.name,
+                      onButtonPressed: () =>
+                          themeModel.applyTheme(themeEntry.key),
+                      themePrimaryColor: themeEntry.themeData.primaryColor,
+                      isActive:
+                          themeEntry.key.index == snapshot.data?.key.index,
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),

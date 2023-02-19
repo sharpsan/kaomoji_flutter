@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:kaomoji_flutter/constants/emojis.dart' as Emojis;
 import 'package:kaomoji_flutter/screens/emojis_screen.dart';
 
-class EmojisTabsScreen extends StatelessWidget {
+class EmojisTabsScreen extends StatefulWidget {
+  const EmojisTabsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EmojisTabsScreen> createState() => _EmojisTabsScreenState();
+}
+
+class _EmojisTabsScreenState extends State<EmojisTabsScreen>
+    with SingleTickerProviderStateMixin {
   final List<TabEntry> _tabEntries = [
     TabEntry(
       tab: Tab(text: "HAPPY"),
@@ -16,12 +24,36 @@ class EmojisTabsScreen extends StatelessWidget {
       tab: Tab(text: "OTHERS"),
       tabView: EmojisScreen(emojiData: Emojis.kEmojisOther),
     ),
+    TabEntry(
+      tab: Tab(text: "CUSTOM"),
+      tabView: EmojisScreen(emojiData: []),
+    ),
   ];
+
+  bool showAddCustomEmojiFab = false;
+  late final TabController _tabController = TabController(
+    length: 4,
+    vsync: this,
+  )..addListener(() {
+      /// Show the FAB only on the custom tab
+      _setFabVisibility(_tabController.index == 3);
+    });
+
+  void _setFabVisibility(bool show) {
+    if (show != showAddCustomEmojiFab)
+      setState(() {
+        showAddCustomEmojiFab = show;
+      });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
             // theme settings
@@ -31,15 +63,21 @@ class EmojisTabsScreen extends StatelessWidget {
             ),
           ],
           bottom: TabBar(
+            controller: _tabController,
             tabs: _tabEntries.map((entry) => entry.tab).toList(),
           ),
           title: Text("ASCII Emotes"),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: _tabEntries.map((entry) => entry.tabView).toList(),
         ),
-      ),
-    );
+        floatingActionButton: showAddCustomEmojiFab
+            ? FloatingActionButton(
+                onPressed: () {},
+                child: Icon(Icons.add),
+              )
+            : null);
   }
 }
 
