@@ -44,6 +44,9 @@ final appThemes = [
       primaryColor: Colors.black,
       cardColor: Colors.black,
       indicatorColor: Colors.white,
+      floatingActionButtonTheme: _darkTheme.floatingActionButtonTheme.copyWith(
+        backgroundColor: Colors.white,
+      ),
       buttonTheme: _darkTheme.buttonTheme.copyWith(
         colorScheme: _darkTheme.colorScheme.copyWith(
           primary: Colors.black,
@@ -61,8 +64,9 @@ final appThemes = [
       colorScheme: _darkTheme.colorScheme.copyWith(
         secondary: Colors.black,
         primary: Colors.black,
-        tertiary: Colors.black,
+        tertiary: Colors.white,
         background: Colors.black,
+        onSurface: Colors.white,
       ),
     ),
   ),

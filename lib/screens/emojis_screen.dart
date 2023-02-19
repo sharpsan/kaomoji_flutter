@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class EmojisScreen extends StatelessWidget {
-  final List<String> emojiData;
+  final FutureOr<List<String>> emojiData;
+  final Function(String emoji)? onEmojiLongPress;
   EmojisScreen({
     required this.emojiData,
+    this.onEmojiLongPress,
   });
 
   void copyToClipboard(BuildContext context, String text) {
@@ -22,17 +26,43 @@ class EmojisScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: emojiData.length,
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 5.0,
-      ),
-      itemBuilder: (context, index) {
-        return EmojiCard(
-          emoji: emojiData[index],
-          onPressed: () => copyToClipboard(context, emojiData[index]),
-        );
+    return FutureBuilder<List<String>>(
+      future: Future.value(emojiData),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          /// show icon is there are no entries
+          if (snapshot.data!.isEmpty) {
+            return Center(
+              child: Icon(
+                Icons.sentiment_neutral,
+                size: 100.0,
+              ),
+            );
+          }
+
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 5.0,
+            ),
+            itemBuilder: (context, index) {
+              return EmojiCard(
+                emoji: snapshot.data![index],
+                onPressed: (emoji) => copyToClipboard(context, emoji),
+                onLongPress: (emoji) => onEmojiLongPress?.call(emoji),
+              );
+            },
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }
@@ -40,10 +70,12 @@ class EmojisScreen extends StatelessWidget {
 
 class EmojiCard extends StatelessWidget {
   final String emoji;
-  final VoidCallback? onPressed;
+  final Function(String emoji)? onPressed;
+  final Function(String emoji)? onLongPress;
   EmojiCard({
     required this.emoji,
     this.onPressed,
+    this.onLongPress,
   });
   @override
   Widget build(BuildContext context) {
@@ -71,7 +103,8 @@ class EmojiCard extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 borderRadius: BorderRadius.circular(4),
-                onTap: onPressed,
+                onTap: () => onPressed?.call(emoji),
+                onLongPress: () => onLongPress?.call(emoji),
               ),
             ),
           ),
