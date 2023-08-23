@@ -90,9 +90,9 @@ final appThemes = [
         elevation: 0,
       ),
       scaffoldBackgroundColor: Colors.yellow.shade200,
+      primaryColorDark: Colors.yellow.shade900,
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch: Colors.yellow,
-        primaryColorDark: Colors.yellow.shade900,
         accentColor: Colors.yellow.shade900,
         backgroundColor: Colors.yellow.shade100,
         cardColor: Colors.yellow.shade100,

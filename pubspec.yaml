@@ -14,13 +14,13 @@ description: Easily copy text emoticons.
 version: 1.1.0+2
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   provider: ^6.0.5
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
