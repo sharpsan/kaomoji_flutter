@@ -14,8 +14,9 @@ enum ThemeKey {
   PINK,
 }
 
-final _defaultTheme = ThemeData();
-final _darkTheme = ThemeData.dark();
+// These themes were designed for Material 2, so opt out of the Material 3 default.
+final _defaultTheme = ThemeData(useMaterial3: false);
+final _darkTheme = ThemeData.dark(useMaterial3: false);
 
 final appThemes = [
   ThemeEntry(
@@ -30,7 +31,9 @@ final appThemes = [
     key: ThemeKey.DARK,
     name: 'Dark',
     themeData: _darkTheme.copyWith(
-      indicatorColor: Colors.white,
+      tabBarTheme: _darkTheme.tabBarTheme.copyWith(
+        indicatorColor: Colors.white,
+      ),
       colorScheme: _darkTheme.colorScheme.copyWith(
         secondary: Colors.white,
       ),
@@ -43,7 +46,6 @@ final appThemes = [
       scaffoldBackgroundColor: Colors.black,
       primaryColor: Colors.black,
       cardColor: Colors.black,
-      indicatorColor: Colors.white,
       floatingActionButtonTheme: _darkTheme.floatingActionButtonTheme.copyWith(
         backgroundColor: Colors.white,
       ),
@@ -54,18 +56,18 @@ final appThemes = [
         ),
       ),
       appBarTheme: _darkTheme.appBarTheme.copyWith(
-        color: Colors.black,
+        backgroundColor: Colors.black,
       ),
       tabBarTheme: _darkTheme.tabBarTheme.copyWith(
         indicatorColor: Colors.white,
-        overlayColor: MaterialStateProperty.all(Colors.white),
+        overlayColor: WidgetStateProperty.all(Colors.white),
         dividerColor: Colors.black,
       ),
       colorScheme: _darkTheme.colorScheme.copyWith(
         secondary: Colors.black,
         primary: Colors.black,
         tertiary: Colors.white,
-        background: Colors.black,
+        surface: Colors.black,
         onSurface: Colors.white,
       ),
     ),
@@ -77,16 +79,20 @@ final appThemes = [
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.green,
       ),
+      useMaterial3: false,
     ),
   ),
   ThemeEntry(
     key: ThemeKey.MELLOW_YELLOW,
     name: "Mellow Yellow",
     themeData: ThemeData(
+      useMaterial3: false,
       primaryColor: Colors.yellow.shade100,
-      indicatorColor: Colors.yellow.shade800,
+      tabBarTheme: TabBarThemeData(
+        indicatorColor: Colors.yellow.shade800,
+      ),
       appBarTheme: AppBarTheme(
-        color: Colors.yellow.shade200,
+        backgroundColor: Colors.yellow.shade200,
         elevation: 0,
       ),
       scaffoldBackgroundColor: Colors.yellow.shade200,
@@ -108,6 +114,7 @@ final appThemes = [
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.purple,
       ),
+      useMaterial3: false,
     ),
   ),
   ThemeEntry(
@@ -117,6 +124,7 @@ final appThemes = [
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.lime,
       ),
+      useMaterial3: false,
     ),
   ),
   ThemeEntry(
@@ -126,6 +134,7 @@ final appThemes = [
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.indigo,
       ),
+      useMaterial3: false,
     ),
   ),
   ThemeEntry(
@@ -135,6 +144,7 @@ final appThemes = [
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.pink,
       ),
+      useMaterial3: false,
     ),
   ),
 ];
